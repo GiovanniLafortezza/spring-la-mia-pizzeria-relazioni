@@ -42,4 +42,9 @@ public class PizzaController {
         }
     }
 
+    @GetMapping("/create")
+    public String create() {
+        return "pizza/create";
+    }
+
 }
