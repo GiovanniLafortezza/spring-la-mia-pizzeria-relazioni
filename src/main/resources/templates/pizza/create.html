@@ -29,6 +29,10 @@
                 </ul>
             </div>
         </div>
+        <div class="col-6">
+            <label for="img" class="form-label">Immagine</label>
+            <input type="text" id="img" class="form-control" th:field="*{image}">
+        </div>
         <div class="col-12">
             <label for="descriptions" class="form-label">Ingredienti</label>
             <textarea id="descriptions" class="form-control" rows="5" th:field="*{description}" th:errorClass="is-invalid"></textarea>

@@ -4,7 +4,8 @@
 <body class="bg-primary-subtle">
 <div class="container">
     <h2 th:text="|Nome : ${pizza.name}"></h2>
-    <img th:src="${pizza.image}" width="500" alt="pizza margherita">
+    <div th:if="${pizza.image.isEmpty()}">Non ci sono immagini</div>
+    <img th:unless="${pizza.image.isEmpty()}" th:src="${pizza.image}" width="500" alt="pizza margherita">
     <h4 th:text="${pizza.description}"></h4>
     <h3><span>Price : </span><span th:text="${pizza.price}"></span>$</h3>
     <a class="btn btn-primary" th:href="@{/pizza}">Return</a>
