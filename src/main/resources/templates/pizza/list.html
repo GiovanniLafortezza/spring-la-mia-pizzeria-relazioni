@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/fragments :: head('Pizza List')"></head>
-<body>
+<body class="bg-primary-subtle">
     <div class="container">
         <h1>Le Nostre Pizze</h1>
         <hr>
         <div th:if="${pizzaList.size() == 0}">Mi Dispiace Non Ci Sono Pizze</div>
-        <table class="table table-hover" th:unless="${pizzaList.size() == 0}">
+        <table class="table table-hover table-primary" th:unless="${pizzaList.size() == 0}">
             <thead>
                 <tr>
                     <th scope="col">#</th>

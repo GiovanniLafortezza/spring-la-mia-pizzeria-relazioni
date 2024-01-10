@@ -1,6 +1,10 @@
 package org.lessons.java.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
@@ -11,11 +15,15 @@ public class Pizza {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     private Integer id;
+    @NotEmpty(message = "Il nome non deve essere vuoto")
     @Column(nullable = false)
     private String name;
+    @NotEmpty(message = "Inserire degli ingredienti!")
     @Column(nullable = false)
     private String description;
     private String image;
+    @NotNull(message = "Inserire un prezzo minimo di 5.00")
+    @DecimalMin(value = "5.00", message ="Inserire un prezzo minimo di 5.00" )
     @Column(nullable = false)
     private BigDecimal price;
 
