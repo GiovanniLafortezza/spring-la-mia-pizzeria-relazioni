@@ -24,6 +24,7 @@
                     <td th:text="${pizza.price}"></td>
                     <td>
                         <a class="btn btn-primary btn-sm" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Visualizza</a>
+                        <a class="btn btn-primary btn-sm" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Modifica</a>
                     </td>
                 </tr>
             </tbody>
