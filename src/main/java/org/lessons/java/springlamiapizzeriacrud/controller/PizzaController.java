@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -72,13 +73,25 @@ public class PizzaController {
 
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("/edit/{id}")
     public String update(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "pizza/edit";
         } else {
             Pizza updatePizza = pizzaRepository.save(formPizza);
             return "redirect:/pizza/show/" + updatePizza.getId();
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            pizzaRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("redirectMessage", "La pizza " + result.get().getName() + " è stata eliminata");
+            return "redirect:/pizza";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La pizza con id: " + id + " non è stata trobvata");
         }
     }
 

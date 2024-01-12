@@ -3,6 +3,12 @@
 <head th:replace="fragments/fragments :: head('Pizza List')"></head>
 <body class="bg-primary-subtle">
     <div class="container">
+        <div th:if="${redirectMessage != null}"
+             class="alert alert-success alert-dismissible fade show mt-4"
+             role="alert">
+            <div th:text="${redirectMessage}"></div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <h1>Le Nostre Pizze</h1>
         <hr>
         <div th:if="${pizzaList.size() == 0}">Mi Dispiace Non Ci Sono Pizze</div>
@@ -22,9 +28,17 @@
                     <td th:text="${pizza.name}"></td>
                     <td th:text="${pizza.description}"></td>
                     <td th:text="${pizza.price}"></td>
-                    <td>
+                    <td class="d-flex justify-content-around">
                         <a class="btn btn-primary btn-sm" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Visualizza</a>
                         <a class="btn btn-primary btn-sm" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Modifica</a>
+                        <form
+                                method="post"
+                                th:action="@{/pizza/delete/{id}(id=${pizza.id})}"
+                                onsubmit="return confirm('Sei sicuro?')"
+                        >
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+
+                        </form>
                     </td>
                 </tr>
             </tbody>
