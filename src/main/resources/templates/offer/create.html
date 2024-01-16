@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/fragments :: head('Create Offer')"></head>
+<body>
+<div class="container">
+    <h1 class="text-center"><span>Crea un'offerta per la pizza </span><span th:text="${pizza.name}"></span></h1>
+    <form
+        id="create-offer"
+        method="post"
+        th:object="${offer}"
+        th:action="@{/offer/create}"
+        class="row g-3"
+    >
+        <input type="hidden" th:field="*{pizza}">
+        <div class="col-4">
+            <label for="title" class="form-label">Nome Offerta</label>
+            <input class="form-control" type="text" id="title" th:field="*{title}">
+        </div>
+        <div class="col-4">
+            <label for="startDate" class="form-label">Data Inizio</label>
+            <input class="form-control" type="date" id="startDate" th:field="*{startDate}">
+        </div>
+        <div class="col-4">
+            <label for="endDate" class="form-label">Data Fine</label>
+            <input class="form-control" type="date" id="endDate" th:field="*{endDate}">
+        </div>
+        <div class="col-2">
+            <label for="price" class="form-label">Prezzo</label>
+            <input class="form-control" type="text" id="price" th:field="*{price}">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Salva</button>
+            <a class="btn btn-danger" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Annulla</a>
+        </div>
+    </form>
+    <th:block th:replace="fragments/fragments :: script"></th:block>
+</div>
+</body>
+</html>

@@ -34,6 +34,7 @@ public class OfferController {
             model.addAttribute("pizza", pizzaToOffer);
 
             Offer newOffer = new Offer();
+            newOffer.setPizza(pizzaToOffer);
             model.addAttribute("offer", newOffer);
 
             return "offer/create";
