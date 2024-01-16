@@ -2,6 +2,7 @@ package org.lessons.java.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,9 +12,10 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDate StartDate;
-    private LocalDate EndDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String title;
+    private BigDecimal price;
 
     @ManyToOne
     private Pizza pizza;
@@ -28,19 +30,19 @@ public class Offer {
     }
 
     public LocalDate getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     public void setStartDate(LocalDate startDate) {
-        StartDate = startDate;
+        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
-        return EndDate;
+        return endDate;
     }
 
     public void setEndDate(LocalDate endDate) {
-        EndDate = endDate;
+        this.endDate = endDate;
     }
 
     public String getTitle() {
@@ -57,6 +59,14 @@ public class Offer {
 
     public void setPizza(Pizza pizza) {
         this.pizza = pizza;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }
 

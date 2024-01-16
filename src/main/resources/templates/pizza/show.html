@@ -8,22 +8,35 @@
     <img th:unless="${pizza.image.isEmpty()}" th:src="${pizza.image}" width="500" alt="pizza margherita">
     <h4 th:text="${pizza.description}"></h4>
     <h3><span>Price : </span><span th:text="${pizza.price}"></span>$</h3>
-    <h3>Offerte Disponibili :</h3>
-    <table class="table table-primary">
+    <div class="row justify-content-between">
+        <h3 class="col-4">Offerte Disponibili :</h3>
+        <a class="btn btn-primary col-2" th:href="@{/pizza}">Aggiungi Offerta</a>
+    </div>
+
+    <table class="table table-primary" th:if="${pizza.offers.size() > 0}">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Titolo</th>
             <th scope="col">Data Inizio</th>
             <th scope="col">Data Fine</th>
+            <th scope="col">Nuovo Prezzo</th>
         </tr>
         </thead>
         <tbody>
-
+            <tr th:each="off : ${pizza.offers}">
+                <td th:text="${off.id}"></td>
+                <td th:text="${off.title}"></td>
+                <td th:text="${off.startDate}"></td>
+                <td th:text="${off.endDate}"></td>
+                <td><span th:text="${off.price}"></span><span> $</span></td>
+            </tr>
         </tbody>
-
     </table>
-    <a class="btn btn-primary" th:href="@{/pizza}">Return</a>
+    <div class="alert alert-info" th:if="${pizza.offers.size() == 0}">
+        Questa pizza non ha offerte :(
+    </div>
+    <a class="btn btn-primary" th:href="@{/pizza}">Ritorna Indietro</a>
 </div>
 
 <th:block th:replace="fragments/fragments :: script"></th:block>
