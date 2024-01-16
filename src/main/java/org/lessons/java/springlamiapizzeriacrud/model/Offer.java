@@ -15,8 +15,8 @@ public class Offer {
     private LocalDate EndDate;
     private String title;
 
-    @OneToMany(mappedBy = "offer")
-    private List<Pizza> pizzas;
+    @ManyToOne
+    private Pizza pizza;
 
 
     public Integer getId() {
@@ -51,12 +51,12 @@ public class Offer {
         this.title = title;
     }
 
-    public List<Pizza> getPizzas() {
-        return pizzas;
+    public Pizza getPizza() {
+        return pizza;
     }
 
-    public void setPizzas(List<Pizza> pizzas) {
-        this.pizzas = pizzas;
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
     }
 }
 

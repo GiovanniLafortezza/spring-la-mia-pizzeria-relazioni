@@ -8,6 +8,21 @@
     <img th:unless="${pizza.image.isEmpty()}" th:src="${pizza.image}" width="500" alt="pizza margherita">
     <h4 th:text="${pizza.description}"></h4>
     <h3><span>Price : </span><span th:text="${pizza.price}"></span>$</h3>
+    <h3>Offerte Disponibili :</h3>
+    <table class="table table-primary">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titolo</th>
+            <th scope="col">Data Inizio</th>
+            <th scope="col">Data Fine</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+    </table>
     <a class="btn btn-primary" th:href="@{/pizza}">Return</a>
 </div>
 
