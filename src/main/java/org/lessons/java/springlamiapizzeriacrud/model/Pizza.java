@@ -27,6 +27,9 @@ public class Pizza {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @ManyToOne
+    private Offer offer;
+
     //--------------- GETTER E SETTER -----------------
 
 
@@ -68,5 +71,13 @@ public class Pizza {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 }
