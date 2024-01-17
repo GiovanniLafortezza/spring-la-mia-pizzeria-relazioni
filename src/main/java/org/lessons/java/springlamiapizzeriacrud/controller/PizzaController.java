@@ -22,10 +22,21 @@ public class PizzaController {
     // il Controller ha bisogno delle funzionalità del Repository
     @Autowired
     PizzaRepository pizzaRepository;
+    // metodo index che mostra la lista di tute le pizze
     @GetMapping
-    public String index(Model model) {
-        List<Pizza> pizzaList = pizzaRepository.findAll();
+    public String index(@RequestParam(name = "keyword", required = false) String searchKeyword, Model model) {
+        List<Pizza> pizzaList;
+        if (searchKeyword != null) {
+            // se searchKeyword è presente faccio la ricerca per nome
+            pizzaList = pizzaRepository.findByNameContaining(searchKeyword);
+        } else {
+            // altrimenti recupero la lista di tutte le pizze dal database
+            pizzaList = pizzaRepository.findAll();
+        }
+        // aggiungo la lista di pizze agli attributi del Model
         model.addAttribute("pizzaList", pizzaList);
+        // precarico il value dell'input di ricerca con la stringa searchKeyword
+        model.addAttribute("preloadSearch", searchKeyword);
 
         return "pizza/list";
     }
