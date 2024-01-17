@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="pizza : ${pizzaList}">
+                <tr th:each="pizza : ${pizzaList}" th:classappend="${pizza.offers.size() == 0 ? 'table-warning' : ''}">
                     <th scope="row" th:text="${pizza.id}"></th>
                     <td th:text="${pizza.name}"></td>
                     <td th:text="${pizza.description}"></td>
@@ -32,6 +32,7 @@
                         <a class="btn btn-primary btn-sm" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Visualizza</a>
                         <a class="btn btn-primary btn-sm" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Modifica</a>
                         <form
+                                th:if="${pizza.offers.size() > 0}"
                                 method="post"
                                 th:action="@{/pizza/delete/{id}(id=${pizza.id})}"
                                 onsubmit="return confirm('Sei sicuro?')"
@@ -39,6 +40,7 @@
                             <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
 
                         </form>
+                        <button disabled class="btn btn-danger btn-sm" th:if="${pizza.offers.size() == 0}">Elimina</button>
                     </td>
                 </tr>
             </tbody>

@@ -21,6 +21,7 @@ public class Pizza {
     private String name;
     @NotEmpty(message = "Inserire degli ingredienti!")
     @Column(nullable = false)
+    @Lob
     private String description;
     private String image;
     @NotNull(message = "Inserire un prezzo minimo di 5.00")
