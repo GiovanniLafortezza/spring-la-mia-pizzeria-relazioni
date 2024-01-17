@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/fragments :: head('Edit Offer')"></head>
+<body class="bg-primary-subtle">
+<div class="container">
+    <h1 class="text-center">Modifica l'offerta : <span th:text="${offer.title}"></span></h1>
+    <form
+            id="edit-offer"
+            method="post"
+            th:action="@{/offer/edit/{id}(id=${offer.id})}"
+            th:object="${offer}"
+            class="row gy-3"
+    >
+        <!-- campo nascosto per l'attributo book -->
+        <input type="hidden" th:field="*{pizza}">
+        <!-- campo startDate -->
+        <div class="col-6">
+            <label class="form-label" for="startDate">Data Inizio</label>
+            <input class="form-control" type="date" id="startDate" th:field="*{startDate}"
+                   th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6">
+            <label class="form-label" for="endDate">Data Fine</label>
+            <input class="form-control" type="date" id="endDate" th:field="*{endDate}"
+                   th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <label for="title" class="form-label">Nome</label>
+            <input class="form-control" type="text" id="title" th:field="*{title}" th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-2">
+            <label for="price" class="form-label">Prezzo &euro;</label>
+            <input class="form-control" type="text" id="price" th:field="*{price}" th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Salva</button>
+            <a class="btn btn-danger" th:href="@{/pizza/show/{id}(id=${offer.pizza.id})}">Annulla</a>
+        </div>
+    </form>
+
+</div>
+
+<th:block th:replace="fragments/fragments :: script"></th:block>
+</body>
+</html>
