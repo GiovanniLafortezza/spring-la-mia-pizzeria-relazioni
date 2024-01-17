@@ -1,5 +1,6 @@
 package org.lessons.java.springlamiapizzeriacrud.controller;
 
+import jakarta.validation.Valid;
 import org.lessons.java.springlamiapizzeriacrud.model.Offer;
 import org.lessons.java.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.java.springlamiapizzeriacrud.repository.OfferRepository;
@@ -8,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -48,6 +47,28 @@ public class OfferController {
     public String store(Offer formOffer) {
         Offer storedOffer = offerRepository.save(formOffer);
         return "redirect:/pizza/show/" + storedOffer.getPizza().getId();
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Offer> result = offerRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("offer", result.get());
+            return "offer/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta con id : " + id + " non trovata");
+        }
+
+    }
+
+    @PostMapping("edit/{id}")
+    public String update( @PathVariable Integer id, @Valid Offer formOffer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "offer/edit";
+        } else {
+            Offer updateOffer = offerRepository.save(formOffer);
+            return "redirect:/pizza/show/" + updateOffer.getPizza().getId();
+        }
     }
 
 }

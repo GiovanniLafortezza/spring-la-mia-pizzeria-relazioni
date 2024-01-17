@@ -1,6 +1,9 @@
 package org.lessons.java.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,9 +15,12 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull
     private LocalDate startDate;
     private LocalDate endDate;
+    @NotEmpty
     private String title;
+    @NotNull
     private BigDecimal price;
 
     @ManyToOne
