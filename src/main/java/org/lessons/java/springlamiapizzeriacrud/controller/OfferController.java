@@ -44,7 +44,14 @@ public class OfferController {
     }
 
     @PostMapping("/create")
-    public String store(Offer formOffer) {
+    public String store(@Valid Offer formOffer, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pizza", formOffer.getPizza());
+            return "offer/create";
+        }
+        if (formOffer.getEndDate() != null && formOffer.getEndDate().isBefore(formOffer.getStartDate())) {
+            formOffer.setEndDate(formOffer.getStartDate().plusDays(10));
+        }
         Offer storedOffer = offerRepository.save(formOffer);
         return "redirect:/pizza/show/" + storedOffer.getPizza().getId();
     }
@@ -62,13 +69,28 @@ public class OfferController {
     }
 
     @PostMapping("edit/{id}")
-    public String update( @PathVariable Integer id, @Valid Offer formOffer, BindingResult bindingResult) {
+    public String update( @PathVariable Integer id, @Valid Offer formOffer, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("pizza", formOffer.getPizza());
             return "offer/edit";
-        } else {
+        }
+        if (formOffer.getEndDate() != null && formOffer.getEndDate().isBefore(formOffer.getStartDate())) {
+            formOffer.setEndDate(formOffer.getStartDate().plusDays(10));
+        }
             Offer updateOffer = offerRepository.save(formOffer);
             return "redirect:/pizza/show/" + updateOffer.getPizza().getId();
-        }
+
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Optional<Offer> result = offerRepository.findById(id);
+        if (result.isPresent()) {
+            Offer offetToDelete = result.get();
+            offerRepository.delete(offetToDelete);
+            return "redirect:/pizza/show/" + offetToDelete.getPizza().getId();
+        } else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta con id : " + id + " non trovata");
     }
 
 }
