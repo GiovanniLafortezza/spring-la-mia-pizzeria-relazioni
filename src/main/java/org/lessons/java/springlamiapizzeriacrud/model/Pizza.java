@@ -32,6 +32,9 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza")
     private List<Offer> offers;
 
+    @ManyToMany
+    private List<Ingredient> ingredients;
+
 
 
     //--------------- GETTER E SETTER -----------------
@@ -83,5 +86,13 @@ public class Pizza {
 
     public void setOffers(List<Offer> offers) {
         this.offers = offers;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
