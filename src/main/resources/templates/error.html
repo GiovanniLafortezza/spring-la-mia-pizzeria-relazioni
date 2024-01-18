@@ -7,6 +7,7 @@
     <h2 th:text="${status}"></h2>
     <p>Message: <span th:text="${message}"></span></p>
     <div><a th:href="@{/pizza}">Back to pizza list</a></div>
+    <div><a th:href="@{/ingredient}">Back to ingredients list</a></div>
     <pre th:text="${trace}"></pre>
 </div>
 <th:block th:replace="fragments/fragments :: script"></th:block>

@@ -4,14 +4,20 @@
 <body class="bg-primary-subtle">
 <nav th:replace="fragments/navbar :: topNavbar('ingredients')"></nav>
 <div class="container">
-    <h1>Ingredienti</h1>
+    <div th:if="${redirectMessage != null}"
+         class="alert alert-success alert-dismissible fade show mt-4"
+         role="alert">
+        <div th:text="${redirectMessage}"></div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <h1>Ingredienti  <span><a th:href="@{/ingredient/create}" class="btn btn-primary">Aggiungi</a></span></h1>
     <hr>
-    <div th:if="${ingredientList.size() < 1}">Mi dispiace non ci sono ingredienti</div>
-    <div th:if="${ingredientList.size() > 0}" class="row">
+    <div th:if="${ingredientList.size() == 0}">Mi dispiace non ci sono ingredienti</div>
+    <div th:unless="${ingredientList.size() == 0}" class="row">
         <div class="col-12">
             <ul th:each="ing : ${ingredientList}" class="list-group list-group-flush list-group-item-primary">
                 <li class="list-group-item d-flex">
-                    <span><a class="btn btn-primary btn-sm me-4">Modifica</a></span>
+                    <span><a class="btn btn-primary btn-sm me-4" th:href="@{/ingredient/edit/{id}(id=${ing.id})}">Modifica</a></span>
                     <span><form
                             method="post"
                             th:action="@{/ingredient/delete/{id}(id=${ing.id})}"
