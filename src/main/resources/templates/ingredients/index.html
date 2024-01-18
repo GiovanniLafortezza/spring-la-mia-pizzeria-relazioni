@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/fragments :: head('Show Ingredients')"></head>
+<body class="bg-primary-subtle">
+<nav th:replace="fragments/navbar :: topNavbar('ingredients')"></nav>
+<div class="container">
+    <h1>Ingredienti</h1>
+    <hr>
+    <div th:if="${ingredientList.size() < 1}">Mi dispiace non ci sono ingredienti</div>
+    <div th:if="${ingredientList.size() > 0}" class="row">
+        <div class="col-12">
+            <ul th:each="ing : ${ingredientList}" class="list-group list-group-flush list-group-item-primary">
+                <li class="list-group-item d-flex">
+                    <span><a class="btn btn-primary btn-sm me-4">Modifica</a></span>
+                    <span><form
+                            method="post"
+                            th:action="@{/ingredient/delete/{id}(id=${ing.id})}"
+                            onsubmit="return confirm('Sei sicuro?')"
+                            class="me-4"
+                    >
+                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+
+                    </form></span>
+                    <span th:text="${ing.name}"></span>
+                </li>
+                <li class="list-group-item"></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="fragments/fragments :: script"></th:block>
+</body>
+</html>
