@@ -3,3 +3,11 @@ INSERT INTO pizzas (name, description, image, price) VALUES('Wurstel e Patatine'
 
 INSERT INTO offers (pizza_id, title, start_date, end_date, price) VALUES(1, 'Offerta Weekend', '2024-01-23', '2024-01-24', 4.50);
 INSERT INTO offers (pizza_id, title, start_date, end_date, price) VALUES(1, 'Offerta Sera', '2024-01-18', '2024-01-22', 5.00);
+
+INSERT INTO ingredients (name) VALUE ('Mozzarella');
+INSERT INTO ingredients (name) VALUE ('Pomodoro');
+INSERT INTO ingredients (name) VALUE ('Basilico');
+INSERT INTO ingredients (name) VALUE ('Pepe');
+INSERT INTO ingredients (name) VALUE ('Patatine');
+INSERT INTO ingredients (name) VALUE ('Wurstel');
+

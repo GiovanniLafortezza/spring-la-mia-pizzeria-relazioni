@@ -2,6 +2,7 @@ package org.lessons.java.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
 import org.lessons.java.springlamiapizzeriacrud.model.Pizza;
+import org.lessons.java.springlamiapizzeriacrud.repository.IngredientRepository;
 import org.lessons.java.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class PizzaController {
     // il Controller ha bisogno delle funzionalità del Repository
     @Autowired
     PizzaRepository pizzaRepository;
+
+    @Autowired
+    IngredientRepository ingredientRepository;
     // metodo index che mostra la lista di tute le pizze
     @GetMapping
     public String index(@RequestParam(name = "keyword", required = false) String searchKeyword, Model model) {
@@ -58,16 +62,18 @@ public class PizzaController {
     public String create(Model model) {
         Pizza pizza = new Pizza();
         model.addAttribute("pizza", pizza);
+        model.addAttribute("ingredientList", ingredientRepository.findAll());
         return "pizza/create";
 
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "pizza/create";
         } else {
             Pizza createPizza = pizzaRepository.save(formPizza);
+            model.addAttribute("ingredientList", ingredientRepository.findAll());
             return "redirect:/pizza/show/" + createPizza.getId();
         }
     }
