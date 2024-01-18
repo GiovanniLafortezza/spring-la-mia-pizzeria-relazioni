@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/fragments :: head('Pizza List')"></head>
 <body class="bg-primary-subtle">
+<nav th:replace="fragments/navbar :: topNavbar('pizza')"></nav>
     <div class="container">
         <div th:if="${redirectMessage != null}"
              class="alert alert-success alert-dismissible fade show mt-4"

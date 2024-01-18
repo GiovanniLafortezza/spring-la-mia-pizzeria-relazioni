@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- fragment navbar -->
+<nav th:fragment="topNavbar(area)" class="navbar navbar-expand-lg bg-primary navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">La mia Pizzeria</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#top-navbar" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="top-navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            th:classappend="${area == 'pizza' ? 'active' : ''}"
+                            th:href="@{/pizza}"
+                    >Pizza</a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            th:classappend="${area == 'ingredients' ? 'active' : ''}"
+                            th:href="@{/ingredient}"
+                    >Ingredients</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
