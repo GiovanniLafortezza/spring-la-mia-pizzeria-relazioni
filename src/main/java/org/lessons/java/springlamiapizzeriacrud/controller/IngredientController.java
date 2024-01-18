@@ -35,6 +35,17 @@ public class IngredientController {
          return "ingredients/create";
      }
 
+     @PostMapping("/create")
+     public String store(@Valid @ModelAttribute("ingredient") Ingredient formIngredient, BindingResult bindingResult) {
+         if (bindingResult.hasErrors()) {
+             return "ingredients/create";
+         } else {
+             Ingredient storeIngredient = ingredientRepository.save(formIngredient);
+             return "redirect:/ingredient";
+         }
+     }
+
+
      @GetMapping("/edit/{id}")
      public String edit(@PathVariable Integer id, Model model) {
          Optional<Ingredient> result = ingredientRepository.findById(id);

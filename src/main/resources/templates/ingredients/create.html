@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/fragments :: head('Create Ingredient')"></head>
+<body class="bg-primary-subtle">
+<nav th:replace="fragments/navbar :: topNavbar('ingredients')"></nav>
+<div class="container">
+    <h1 class="text-center">Aggiungi Ingrediente</h1>
+    <form
+            id="create-ingredient"
+            method="post"
+            th:action="@{/ingredient/create}"
+            th:object="${ingredient}"
+            class="row g-3"
+    >
+        <div class="row">
+            <div class="col-4 me-2">
+                <label for="name" class="form-label">Nome</label>
+                <input class="form-control" type="text" id="name" th:field="*{name}" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mt-2">
+            <button type="submit" class="btn btn-primary me-2">Salva</button>
+            <a class="btn btn-danger" th:href="@{/ingredient}">Annulla</a>
+        </div>
+    </form>
+</div>
+
+<th:block th:replace="fragments/fragments :: script"></th:block>
+</body>
+</html>
